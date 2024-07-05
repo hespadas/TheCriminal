@@ -4,6 +4,7 @@ from django.urls import reverse_lazy
 
 from .models.criminal import Criminal
 
+
 class CriminalListView(ListView):
     model = Criminal
 
@@ -13,18 +14,12 @@ class CriminalCreateView(CreateView):
     fields = ['name', 'criminal_classification_id',]
     success_url = reverse_lazy('criminal_list')
 
+    def form_valid(self, form):
+        form.instance.user_id = self.request.user
+        return super().form_valid(form)
+
 
 def home(request):
     context = {'name': 'John Doe'}
     return render(request, 'criminal/home.html', context)
 
-
-# def get_criminal_list(request):
-#     criminals = Criminal.objects.all()
-#     return HttpResponse('This is the criminal list')
-#
-#
-# def create_criminal(request):
-#     return render(request, 'criminal/create_criminal.html')
-#
-#
