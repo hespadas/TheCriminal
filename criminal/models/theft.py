@@ -1,5 +1,5 @@
 from django.db import models
-from criminal.models import Criminal
+from criminal.models.criminal import Criminal
 
 
 class Theft(models.Model):
